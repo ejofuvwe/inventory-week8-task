@@ -1,25 +1,24 @@
 const express = require('express')
-const app = express();
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
+const authRoute = require('./routes/auth');
+// import routes
+
+const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-// import routes
-const authRoute = require('./routes/auth');
-const dotenv = require('dotenv');
-
-dotenv.config();
-
+dotenv.config({path: './config.env'});
 
 
 // connecting to Db
+const DB = process.env.DATABASE_URL.replace('<PASSWORD>', process.env.DATABASE_PASSWORD )
 
-mongoose.connect(
-    process.env.DB_CONNECT, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }, ()=> console.log('connected to db'));
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, ()=> console.log('connected to db'));
 
 
 
@@ -27,11 +26,11 @@ mongoose.connect(
 app.use(express.json());
 
 // middlewares
-app.use('/api/user', authRoute);
+app.use('/api/v1/user', authRoute);
 
-
-app.listen(5000,()=>
-    console.log('server up and running')
+const port = process.env.PORT
+app.listen(port,()=>
+    console.log(`server up and running on ${port}`)
 );
 
 
