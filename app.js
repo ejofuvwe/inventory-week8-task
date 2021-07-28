@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const authRoute = require('./routes/auth');
+// const productRoute =require('./routes/product')
 // import routes
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.json());
 
 // middlewares
 app.use('/api/v1/user', authRoute);
+// app.use('/api/v1/user', productRoute);
 
 const port = process.env.PORT
 app.listen(port,()=>

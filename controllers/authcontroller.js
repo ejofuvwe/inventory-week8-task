@@ -83,7 +83,8 @@ exports.signin = async (req, res)=> {
 
     // sign user in and send jwt token
    
-
+const token = jwt.sign({id}, process.env.JWT_SECRET,
+    {expiresIn:process.env.JWT_EXPIRES_IN})
     res.status(200).json({
         status: 'success',
         token,
