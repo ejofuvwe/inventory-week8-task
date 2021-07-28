@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router();
-const authcontroller = require('../controllers/authcontro')
+const authcontroller = require('../controllers/authcontroller')
 
 
 // router.get('/register', (req, res)=> {
